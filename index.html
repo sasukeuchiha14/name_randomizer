@@ -9,118 +9,117 @@
 <body>
   <div class="wrapper">
     <h1>E Section</h1>
-    <div id="nameCard" class="card">
-      <div class="front">Click to Pick a Name</div>
-      <div class="back"></div>
+    <div class="name-container">
+      <p class="picked-name" id="pickedName"></p>
     </div>
     <div class="button-container">
       <button id="pickButton" onclick="pickRandomName()">Pick</button>
       <button id="resetButton" onclick="resetNames()">Reset</button>
     </div>
+    <div class="mode-toggle">
+      <label for="modeSwitch">Dark Mode</label>
+      <input type="checkbox" id="modeSwitch" onchange="toggleDarkMode()">
+    </div>
   </div>
 
   <script>
-    const names = [
-      { name: "Devanshi Shukla", rollNo: "PES2UG23AM030" },
-      // { name: "DEVI SAI SANJANA N", rollNo: "PES2UG23AM031" },
-    { name: "Dhriti Rai", rollNo: "PES2UG23AM032" },
-    { name: "DIVYA G", rollNo: "PES2UG23AM033" },
-    { name: "Eesha Shah", rollNo: "PES2UG23AM034" },
-    { name: "FARHAAN ARSHAD", rollNo: "PES2UG23AM035" },
-    { name: "G VISHWAS", rollNo: "PES2UG23AM036" },
-    // { name: "Ganesh Jayadev", rollNo: "PES2UG23AM038" },
-    { name: "Divyansh Sharma", rollNo: "PES2UG23CS181" },
-    { name: "Diya Chandrashekhar", rollNo: "PES2UG23CS182" },
-    { name: "DIYA D BHAT", rollNo: "PES2UG23CS183" },
-    { name: "Diya Prakash", rollNo: "PES2UG23CS184" },
-    // { name: "Drishti Golchha", rollNo: "PES2UG23CS185" },
-    { name: "ERIN JOSEPH", rollNo: "PES2UG23CS186" },
-    { name: "Eshwar B N", rollNo: "PES2UG23CS187" },
-    { name: "Eshwar R A", rollNo: "PES2UG23CS188" },
-    { name: "Fairly Sorathiya", rollNo: "PES2UG23CS189" },
-    { name: "FAVAZ AHMED ALAM", rollNo: "PES2UG23CS190" },
-    { name: "G MALLIKARJUN REDDY", rollNo: "PES2UG23CS191" },
-    { name: "G S S SURYA PRAKASH", rollNo: "PES2UG23CS192" },
-    { name: "GAGAN S S", rollNo: "PES2UG23CS193" },
-    // { name: "GANESH KRISHNAMOORTHI HEGDE", rollNo: "PES2UG23CS194" },
-    { name: "Garuda Nikhil", rollNo: "PES2UG23CS195" },
-    { name: "Gautam Menon", rollNo: "PES2UG23CS196" },
-    { name: "Gauthamdev R Holla", rollNo: "PES2UG23CS197" },
-    { name: "GAVINI PRITHVI ANANYA", rollNo: "PES2UG23CS198" },
-    // { name: "GITESH NAIDU", rollNo: "PES2UG23CS199" },
-    { name: "Glenn Braggs", rollNo: "PES2UG23CS200" },
-    { name: "GOPAL KRISHNA K S", rollNo: "PES2UG23CS201" },
-    { name: "GOURABATTUNI PRANEETH", rollNo: "PES2UG23CS202" },
-    { name: "GOWNI ANANYA", rollNo: "PES2UG23CS204" },
-    { name: "GOWTHAM B", rollNo: "PES2UG23CS205" },
-    { name: "Greeshma Dhananjaiah", rollNo: "PES2UG23CS206" },
-    { name: "GUDIHALLI KIRAN", rollNo: "PES2UG23CS207" },
-    { name: "H ACHYUTH", rollNo: "PES2UG23CS208" },
-    { name: "HARDIK GARG", rollNo: "PES2UG23CS209" },
-    // { name: "HARINI HEGDE", rollNo: "PES2UG23CS210" },
-    // { name: "Harsha Kanthraj", rollNo: "PES2UG23CS211" },
-    // { name: "Harsha Madev Hegde", rollNo: "PES2UG23CS212" },
-    // { name: "HARSHA VARDHAN M", rollNo: "PES2UG23CS213" },
-    { name: "HARSHAVARDHAN N", rollNo: "PES2UG23CS214" },
-    // { name: "HARSHITA ASHISH AGRAWAL", rollNo: "PES2UG23CS215" },
-    { name: "HARSHITH J", rollNo: "PES2UG23CS216" },
-    { name: "Harshvardhan Periwal", rollNo: "PES2UG23CS217" },
-    { name: "HEMA SHREE R", rollNo: "PES2UG23CS218" },
-    { name: "HEMANG RAJ", rollNo: "PES2UG23CS219" },
-    { name: "HEMANTH S", rollNo: "PES2UG23CS220" },
-    { name: "HEMANTH S", rollNo: "PES2UG23CS221" },
-    { name: "Heth M Shah", rollNo: "PES2UG23CS222" },
-    { name: "HIMANI SINGH", rollNo: "PES2UG23CS223" },
-    { name: "HIREN M P", rollNo: "PES2UG23CS224" },
-    { name: "HRITHIK S P", rollNo: "PES2UG23CS225" },
-    { name: "Dharshan R", rollNo: "PES2UG23EC045" },
-    { name: "Dhruv Nikhil Shembekar", rollNo: "PES2UG23EC046" },
-    { name: "Dhruv Sharma", rollNo: "PES2UG23EC047" },
-    { name: "DUGGI REDDY HITESH PRANAV REDDY", rollNo: "PES2UG23EC052" },
-    { name: "G SRUJANA", rollNo: "PES2UG23EC053" },
-    { name: "Gagan Reddy B M", rollNo: "PES2UG23EC054" },
-    { name: "Gautham K", rollNo: "PES2UG23EC055" },
-    // { name: "GAYATHRI THIRUVENGADA GOVINDAN", rollNo: "PES2UG23EC056" },
-    { name: "Govindaraj", rollNo: "PES2UG23EC057" },
-    // { name: "HARSHINI S", rollNo: "PES2UG23EC058" },
-    { name: "HARSHITH GANESH DAVANGERE", rollNo: "PES2UG23EC059" },
-    ];
-
-    let pickedStudents = JSON.parse(localStorage.getItem("pickedStudents")) || [];
-
-    const card = document.getElementById("nameCard");
-    const front = card.querySelector(".front");
-    const back = card.querySelector(".back");
+    const names = ["PES2UG23AM030",
+"PES2UG23AM031",
+"PES2UG23AM032",
+"PES2UG23AM033",
+"PES2UG23AM034",
+"PES2UG23AM035",
+"PES2UG23AM036",
+"PES2UG23AM038",
+"PES2UG23CS181",
+"PES2UG23CS182",
+"PES2UG23CS183",
+"PES2UG23CS184",
+"PES2UG23CS185",
+"PES2UG23CS186",
+"PES2UG23CS187",
+"PES2UG23CS188",
+"PES2UG23CS189",
+"PES2UG23CS190",
+"PES2UG23CS191",
+"PES2UG23CS192",
+"PES2UG23CS193",
+"PES2UG23CS194",
+"PES2UG23CS195",
+"PES2UG23CS196",
+"PES2UG23CS197",
+"PES2UG23CS198",
+"PES2UG23CS199",
+"PES2UG23CS200",
+"PES2UG23CS201",
+"PES2UG23CS202",
+"PES2UG23CS204",
+"PES2UG23CS205",
+"PES2UG23CS206",
+"PES2UG23CS207",
+"PES2UG23CS208",
+"PES2UG23CS209",
+"PES2UG23CS210",
+"PES2UG23CS211",
+"PES2UG23CS212",
+"PES2UG23CS213",
+"PES2UG23CS214",
+"PES2UG23CS215",
+"PES2UG23CS216",
+"PES2UG23CS217",
+"PES2UG23CS218",
+"PES2UG23CS219",
+"PES2UG23CS220",
+"PES2UG23CS221",
+"PES2UG23CS222",
+"PES2UG23CS223",
+"PES2UG23CS224",
+"PES2UG23CS225",
+"PES2UG23EC045",
+"PES2UG23EC046",
+"PES2UG23EC047",
+"PES2UG23EC052",
+"PES2UG23EC053",
+"PES2UG23EC054",
+"PES2UG23EC055",
+"PES2UG23EC056",
+"PES2UG23EC057",
+"PES2UG23EC058",
+"PES2UG23EC059"
+];
 
     function pickRandomName() {
-      if (pickedStudents.length === names.length) {
-        alert("All students have been picked!");
-        return;
+      const pickedIndex = Math.floor(Math.random() * names.length);
+      const pickedName = names.splice(pickedIndex, 1)[0];
+      animateText(pickedName);
+      if (names.length === 0) {
+        document.getElementById('pickButton').disabled = true;
       }
-
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * names.length);
-      } while (pickedStudents.includes(randomIndex));
-
-      const randomName = names[randomIndex];
-      front.textContent = randomName.rollNo;
-      back.textContent = randomName.name;
-
-      pickedStudents.push(randomIndex);
-      localStorage.setItem("pickedStudents", JSON.stringify(pickedStudents));
     }
 
-    card.addEventListener("click", pickRandomName);
-
-    const pickButton = document.getElementById("pickButton");
-    pickButton.addEventListener("click", pickRandomName);
-
     function resetNames() {
-      pickedStudents = [];
-      localStorage.removeItem("pickedStudents");
-      front.textContent = "Click to Pick a Name";
-      back.textContent = "";
+      names.length = 10;
+      document.getElementById('pickedName').textContent = "";
+      document.getElementById('pickButton').disabled = false;
+    }
+
+    function toggleDarkMode() {
+      const body = document.body;
+      body.classList.toggle('dark-mode');
+    }
+
+    function animateText(text) {
+      const element = document.getElementById('pickedName');
+      element.textContent = "";
+      let index = 0;
+      const intervalId = setInterval(() => {
+        if (index < text.length) {
+          element.textContent += text[index];
+          index++;
+        } else {
+          clearInterval(intervalId);
+        }
+      }, 100); 
     }
   </script>
 </body>
